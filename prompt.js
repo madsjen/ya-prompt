@@ -1,14 +1,21 @@
-module.exports = (question, allowedInputs) => new Promise((resolve, reject) => {
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+module.exports = (question, allowedInputs) => {
   allowedInputs = allowedInputs || [];
 
-  process.stdout.write(question);
-  process.stdin.setEncoding('utf8');
-  process.stdin.once('data', answer => {
-    if(allowedInputs.length && allowedInputs.indexOf(answer.trim()) === -1) {
-      reject('Invalid prompt input');
-    }
+  return new Promise((resolve, reject) => {
+    rl.question(question, (answer) => {
+      if(allowedInputs.length && allowedInputs.indexOf(answer.trim()) === -1) {
+        reject('Invalid prompt input');
+      }
 
-    resolve(answer.trim());
-    process.stdin.pause();
-  }).resume();
-});
+      rl.pause();
+      resolve(answer.trim())
+    });
+  });
+}
