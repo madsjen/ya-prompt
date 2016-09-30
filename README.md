@@ -1,1 +1,2 @@
-Very simple promise-based node prompt with support for limiting user input.
+# Yet Another Prompt
+A very simple promise-based node prompt with the ability to limit user input.
