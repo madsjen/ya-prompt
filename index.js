@@ -1,3 +1,5 @@
+'use strict';
+
 const readline = require('readline');
 const chalk = require('chalk');
 
@@ -7,6 +9,21 @@ const rl = readline.createInterface({
 });
 
 function prompt(question, allowedInput) {
+  if(question instanceof Array) {
+    return new Promise(resolve => {
+      let chain = Promise.resolve();
+      let answers = [];
+
+      for(const q of question) {
+        chain = chain
+          .then(prompt.bind(this, q.question, q.validate))
+          .then(answer => answers.push(answer));
+      }
+
+      chain.then(() => resolve(answers));
+    });
+  }
+
   allowedInput = allowedInput || false;
 
   const validate = (value) => {
