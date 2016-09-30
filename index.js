@@ -17,6 +17,7 @@ function prompt(question, allowedInputs) {
         return;
       }
 
+      rl.pause();
       resolve(answer.trim())
     };
 
