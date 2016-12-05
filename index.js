@@ -31,6 +31,7 @@ function prompt(question, allowedInput) {
       case 'string': return allowedInput === value;
       case 'object': return allowedInput.indexOf(value.trim()) !== -1;
       case 'function': return allowedInput(value);
+      default: return true;
     }
   };
 
